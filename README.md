@@ -91,5 +91,25 @@ else needs to change.
 
 ## Deploy
 
-Vercel, using `vercel.json`. Update the canonical URL and Open Graph URLs in
-`index.html` if the production domain changes.
+Vercel, using `vercel.json`.
+
+### Site URL
+
+The canonical link, Open Graph and Twitter tags, JSON-LD, `sitemap.xml` and
+`robots.txt` all derive from one value, resolved in `vite.config.ts`:
+
+1. `SITE_URL`, if set.
+2. Otherwise `VERCEL_PROJECT_PRODUCTION_URL`, which Vercel sets automatically
+   to the project's production domain.
+3. Otherwise `https://yanreyestrada.vercel.app`.
+
+So a Vercel deployment always advertises its real domain, and renaming the
+project or adding a custom domain needs no code change. `index.html` uses a
+`%SITE_URL%` placeholder; `sitemap.xml` and `robots.txt` are generated at build
+time rather than kept in `public/`.
+
+To check what a build will advertise:
+
+```bash
+npm run build && grep canonical dist/index.html
+```

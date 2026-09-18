@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://yanreyestrada.vercel.app/sitemap.xml
