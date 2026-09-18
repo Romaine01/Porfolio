@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-primary: #3b82f6;
+  --color-accent: #8b5cf6;
+  --color-background: #0f172a;
+  --color-surface: #131c31;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", "Menlo", monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply font-sans antialiased bg-white text-slate-800;
+    @apply dark:bg-[#0F172A] dark:text-slate-300;
+    text-rendering: optimizeLegibility;
+    /* A stray wide child must never make the whole page scroll sideways on a
+       phone. Panels that genuinely need width scroll inside themselves. */
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    @apply text-slate-900 dark:text-white tracking-tight;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    @apply bg-blue-500/25 text-slate-900 dark:text-white;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-blue-500 rounded-sm;
+  }
+
+  /* Only hide the ring for mouse users, never keyboard users. */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+
+@layer components {
+  .surface {
+    @apply rounded-2xl border border-slate-200 bg-white/80 backdrop-blur-sm;
+    @apply dark:border-white/[0.07] dark:bg-white/[0.025];
+  }
+
+  .surface-hover {
+    @apply transition-colors duration-200;
+    @apply hover:border-slate-300 dark:hover:border-white/[0.14] dark:hover:bg-white/[0.04];
+  }
+
+  .chip {
+    @apply inline-flex items-center rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-medium text-slate-600;
+    @apply dark:border-white/[0.08] dark:bg-white/[0.04] dark:text-slate-300;
+  }
+
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.18em] text-blue-600 dark:text-blue-400;
+  }
+
+  .section {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-6 lg:px-8;
+  }
+
+  .section-y {
+    @apply py-20 sm:py-24 lg:py-28;
+  }
+
+  /* Tailwind v4 cannot @apply a custom class from the same layer, so the
+     shared button base is repeated rather than composed. */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold;
+    @apply transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold;
+    @apply transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-60;
+    @apply bg-blue-600 text-white hover:bg-blue-500;
+    @apply shadow-[0_1px_2px_rgba(0,0,0,0.1)] hover:shadow-[0_4px_16px_-2px_rgba(59,130,246,0.4)];
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold;
+    @apply transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-60;
+    @apply border border-slate-300 bg-white text-slate-700 hover:border-slate-400 hover:bg-slate-50;
+    @apply dark:border-white/[0.12] dark:bg-white/[0.03] dark:text-slate-200 dark:hover:border-white/20 dark:hover:bg-white/[0.07];
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-slate-300 dark:bg-slate-700;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-400 dark:bg-slate-600;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
