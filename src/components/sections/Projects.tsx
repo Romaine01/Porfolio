@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ExternalLink } from "lucide-react";
 import { GithubIcon } from "../ui/BrandIcons";
 import { projectCategories, projects } from "../../data/projects";
 import type { Project } from "../../data/projects";
@@ -128,6 +128,18 @@ export function Projects() {
                       >
                         <GithubIcon className="h-4 w-4" aria-hidden="true" />
                         Code
+                      </a>
+                    ) : null}
+
+                    {project.demo ? (
+                      <a
+                        href={project.demo}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+                      >
+                        <ExternalLink className="h-4 w-4" aria-hidden="true" />
+                        Live site
                       </a>
                     ) : null}
                   </div>

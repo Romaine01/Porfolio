@@ -59,6 +59,7 @@ export const projects: readonly Project[] = [
       "Attendance monitoring",
       "Backend services",
     ],
+    demo: "https://iotpowered.online/",
     accent: "violet",
   },
   {
